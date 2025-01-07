@@ -1,0 +1,70 @@
+
+.allData-span {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.allData-add-btn {
+  padding: 5px;
+  background: #49d160;
+  border: 1px solid #00e7ff;
+}
+
+.allData-input {
+  width: 300px;
+}
+
+.allData-edit-btn,
+.allData-delete-btn {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+}
+
+.allData-edit-btn {
+  background-color: #ffeb3b;
+}
+
+.allData-delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.allData-grid-div {
+    margin-top: 3rem;
+}
+
+.allData-todo-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.allData-todo {
+    width: 40%;
+    text-align: justify;
+}
+
+.allData-btn-div {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.allData-card-div {
+    border: 1px solid;
+    padding: 15px;
+}
+
+.allData-card-heading {
+    margin: 0;
+    padding: 0px 0px 15px;
+}
+
+.allData-map-div {
+    display: grid;
+    gap: 15px;
+}

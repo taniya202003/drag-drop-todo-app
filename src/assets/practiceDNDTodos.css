@@ -1,0 +1,143 @@
+.darkMode-lable {
+    background: #111;
+    width: 45px;
+    height: 17px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.ball {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background-color: yellow;
+    border: 2px solid #f1c40f;
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    transition: all 0.3s ease;
+}
+
+.darkMode-iconsSpan {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    line-height: 10px;
+}
+body.dark-mode {
+    background-color: #383636;
+    color: #ffffff;
+  }
+
+  .dark\&lightMode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 20px;
+    position: relative;
+    width: 100%;
+    height: 40px;
+  }
+  
+  .darkmode-checkbox:checked + .darkMode-lable .ball {
+    left: 29px;
+  }
+
+  .darkmode-checkbox {
+    display: none;
+  }
+/* ========================================================================================================= */
+
+.createTodo-container {
+    width: 100%;
+}
+
+.createTodo-input\&btn-div {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.createTodo-input {
+    padding: 10px;
+    width: 20%;
+    border: 2px solid;
+    border-radius: 5px;
+    box-shadow: 2px rgb(241, 100, 6);
+}
+
+.createTodo-btn {
+    padding: 9px;
+    border-radius: 5px;
+    font-weight: 700;
+    border: none;
+    background-color: #ebc024;
+}
+
+.showTodo-container {
+    margin-top: 2rem;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.todoHeaders-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px;
+    justify-content: center;
+}
+
+.todoHeader-heading {
+    margin: 0;
+    padding: 0;
+}
+
+.todoHeader-length {
+    border-radius: 100%;
+    padding: 1px 6px;
+    background: white;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.dropTodos-container {
+    width: 100%;
+    max-width: 256px;
+    height: 100%;
+    min-height: 400px;
+}
+
+.dragTodos-container {
+    cursor: grab;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 10px;
+    box-shadow: 3px 3px 3px #a6a6ad;
+    background: beige;
+}
+
+.dragTodos-todo{
+    width: 45%;
+    text-align: justify;
+    color: black;
+}
+
+.dragTodos-btn-div {
+    display: flex;
+    gap: 10px;
+}

@@ -1,0 +1,159 @@
+To achieve the desired functionality, you can modify the CSS and update the `CreateTodo` component accordingly. Below is the code with the necessary changes:
+
+### CSS (`practiceDNDTodos.css`):
+```css
+/* Container for dark/light mode toggle */
+.dark&lightMode {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  border-radius: 20px;
+  position: relative;
+  width: 80px;
+  height: 40px;
+}
+
+/* Ball button for toggling */
+.ball {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: yellow;
+  border: 2px solid #f1c40f;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  transition: all 0.3s ease;
+}
+
+.darkmode-checkbox:checked + .darkMode-lable .ball {
+  left: 45px;
+}
+
+/* Icons */
+.darkMode-iconsSpan {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.darkMode {
+  position: absolute;
+  left: 10px;
+}
+
+.lightMode {
+  position: absolute;
+  right: 10px;
+}
+
+/* Hide checkbox input */
+.darkmode-checkbox {
+  display: none;
+}
+```
+
+### JavaScript (React Component):
+```javascript
+import React, { useContext, useEffect, useState } from "react";
+import "../../assets/practiceDNDTodos.css";
+import { ShowTodos } from "./ShowTodos";
+import { Context } from "./TodosContext";
+import { IoIosMoon } from "react-icons/io";
+import { FaSun } from "react-icons/fa";
+
+export const CreateTodo = () => {
+  const { inputData, setInputData, addTodo, editedTodo, isEditing } =
+    useContext(Context);
+
+  const [toggleDarkMode, setToggleDarkMode] = useState(false);
+
+  useEffect(() => {
+    const selectedTheme = JSON.parse(localStorage.getItem("toggleDarkMode"));
+    if (selectedTheme) {
+      setToggleDarkMode(selectedTheme);
+      document.body.classList.toggle("dark-mode", JSON.parse(selectedTheme));
+    }
+  }, []);
+
+  const handleSelectMode = () => {
+    const selectMode = !toggleDarkMode;
+    setToggleDarkMode(selectMode);
+    document.body.classList.toggle("dark-mode", selectMode);
+    localStorage.setItem("toggleDarkMode", JSON.stringify(selectMode));
+  };
+
+  const handleSubmit = () => {
+    addTodo();
+  };
+
+  return (
+    <div className="createTodo-container">
+      <div className="dark&lightMode">
+        <input
+          className="darkmode-checkbox"
+          type="checkbox"
+          name="checkbox"
+          id="darkmodeonoff"
+          onChange={handleSelectMode}
+          checked={toggleDarkMode}
+        />
+        <label className="darkMode-lable" htmlFor="darkmodeonoff">
+          <span className="darkMode-iconsSpan">
+            <i className="darkMode">
+              <IoIosMoon size={19} color="#f1c40f" />
+            </i>
+            <i className="lightMode">
+              <FaSun color="#f1c40f" />
+            </i>
+          </span>
+          <button className="ball" onClick={handleSelectMode}></button>
+        </label>
+      </div>
+
+      <h1 className="createTodo-h1">
+        Todo List
+        <img
+          src="https://cdn-icons-png.flaticon.com/128/12166/12166873.png"
+          alt="todo icon"
+          height="35px"
+          width="40px"
+        />
+      </h1>
+      <div className="createTodo-input&btn-div">
+        <input
+          className="createTodo-input"
+          type="text"
+          name="name"
+          value={inputData.name}
+          onChange={(e) =>
+            setInputData({
+              ...inputData,
+              id: editedTodo ? inputData.id : new Date().getTime(),
+              name: e.target.value,
+            })
+          }
+        />
+        <button className="createTodo-btn" onClick={handleSubmit}>
+          {isEditing ? "UPDATE" : "ADD"}
+        </button>
+      </div>
+
+      <ShowTodos />
+    </div>
+  );
+};
+```
+
+### Explanation:
+1. **CSS Changes:**
+   - The `ball` button moves from left to right (and vice versa) when toggled, based on the `left` position change.
+   - The icons (`IoIosMoon` and `FaSun`) are positioned at the ends of the toggle, and the background color of the `dark&lightMode` container is set to white when dark mode is active.
+   - The input field (checkbox) is hidden using `display: none`.
+
+2. **JavaScript Changes:**
+   - The toggle logic is managed using `toggleDarkMode` state. When the ball button is clicked, it moves across the container, and the background color and ball styles update according to the theme.
+
+This setup should give you the desired toggle behavior with the ball button moving between the moon and sun icons, as well as the styling updates when dark mode is active.

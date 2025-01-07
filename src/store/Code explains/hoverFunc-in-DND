@@ -1,0 +1,90 @@
+const [, drop] = useDrop({
+    accept: "tsk",
+    hover: (draggedItem) => {
+      if (!tasks || tasks.length === 0) return;
+
+      // Find the index of the dragged item and the target item
+      const draggedTaskIndex = tasks.findIndex(
+        (task) => task.id === draggedItem.id
+      );
+      const targetTaskIndex = tasks.findIndex((task) => task.id === tsk.id);
+
+      // Return if the dragged item is hovered over itself or indices are invalid
+      if (
+        draggedTaskIndex === targetTaskIndex ||
+        draggedTaskIndex === -1 || targetTaskIndex === -1
+      )
+        return;
+
+      // Reorder the tasks by swapping positions
+      const reorderedTasks = [...tasks];
+      const [index] = reorderedTasks.splice(draggedTaskIndex, 1);
+      reorderedTasks.splice(targetTaskIndex, 0, index);
+
+      // Update tasks with reordered list 
+      setTasks(reorderedTasks);
+    },
+  });
+
+
+### Explanation of the `hover` Function in `useDrop`
+
+In the context of `react-dnd`, the `hover` function is used to handle the behavior when a draggable item is being hovered over a droppable area. Here’s a detailed breakdown of how it works in your code:
+
+#### 1. **Purpose of `hover` Function:**
+   - The `hover` function is triggered continuously as you move a draggable item (`draggedItem`) over a droppable area (`tsk`).
+   - It is used to perform actions while the item is being hovered over the drop target. In your case, it’s used to reorder tasks dynamically as the user drags a task over other tasks.
+
+#### 2. **Code Breakdown:**
+   - **Finding Indices:**
+     ```javascript
+     const draggedTaskIndex = tasks.findIndex(task => task.id === draggedItem.id);
+     const targetTaskIndex = tasks.findIndex(task => task.id === tsk.id);
+     ```
+     - These lines find the indices of the dragged item (`draggedTaskIndex`) and the target item (`targetTaskIndex`), which helps in determining the positions in the list.
+
+   - **Conditional Check:**
+     ```javascript
+     if (draggedTaskIndex === targetTaskIndex || draggedTaskIndex === -1 || targetTaskIndex === -1) return;
+     ```
+     - The code checks if the dragged item is hovered over itself or if any index is invalid (`-1`), in which case it exits the function without making changes.
+
+   - **Reordering Tasks:**
+     ```javascript
+     const reorderedTasks = [...tasks];
+     const [draggedTask] = reorderedTasks.splice(draggedTaskIndex, 1);
+     reorderedTasks.splice(targetTaskIndex, 0, draggedTask);
+     ```
+     - The tasks array is cloned, and the dragged item is removed from its original position and inserted into the new position based on where it's being hovered.
+
+   - **Updating the Task List:**
+     ```javascript
+     setTasks(reorderedTasks);
+     ```
+     - Finally, the reordered task list is set using `setTasks`, updating the state with the new order of tasks.
+
+#### 3. **Why `hover`?**
+   - The `hover` function is specifically used for actions that need to occur during the dragging process, such as reordering items dynamically as they are dragged over each other. It allows for real-time visual feedback to the user as they move the item around.
+
+### Alternatives to `hover`
+   - **`drop` Function:**
+     - If you don't need real-time updates and only want to reorder the tasks when the user drops the item, you could use the `drop` function instead. This would only trigger the reorder once the item is actually dropped into a new position.
+
+     ```javascript
+     const [, drop] = useDrop({
+       accept: "tsk",
+       drop: (draggedItem) => {
+         // Similar logic as hover, but only triggered when item is dropped
+       }
+     });
+     ```
+
+   - **`canDrop` Function:**
+     - The `canDrop` function could be used to determine if an item can be dropped at a certain location, though it’s more for validation purposes rather than dynamic reordering.
+
+   - **`DragLayer`:**
+     - If you need more complex custom dragging behavior, you can use a `DragLayer` to track and control the dragging process globally, rather than per drop target.
+
+### When to Use `hover`:
+- Use `hover` when you want to give the user immediate visual feedback during the dragging process, such as previewing the new order of items as they drag an item over others.
+- If the reordering should only occur after the drag operation is complete, consider using `drop` instead.
